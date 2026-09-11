@@ -4,6 +4,7 @@
   --font-sans: "Inter", ui-sans-serif, system-ui, sans-serif,
     "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
   --font-display: "Poppins", var(--font-sans);
+  --font-mono: "Cousine", ui-monospace, SFMono-Regular, Menlo, monospace;
 
   --color-surface: #1a1a1a;
   --color-surface-2: #252525;
@@ -68,6 +69,8 @@
 
   --color-card: #141414;
   --color-card-rule: rgba(255, 255, 255, 0.07);
+  --color-card-label: #666666;
+  --color-card-body: #777777;
   --color-muted-card: #9a9a9a;
 
   --color-phase: #262726;
@@ -79,6 +82,23 @@
   --color-milestone: #00202c;
 
   --color-ember: #ff6b00;
+
+  --color-console: #070d14;
+  --color-console-edge: #131f2e;
+  --color-console-rule: #1e293b;
+  --color-console-panel: #0a1322;
+  --color-console-head: #0b1423;
+  --color-console-well: #060c17;
+  --color-console-legend: #0d1520;
+  --color-console-bright: #f8fafc;
+  --color-console-dim: #94a3b8;
+  --color-console-data: #38bdf8;
+  --color-console-live: #34d399;
+  --color-console-badge: #064e3b;
+  --color-console-badge-edge: #065f46;
+  --color-console-amber: #f59e0b;
+  --color-console-subsea: #00e5ff;
+  --color-console-transit: #ff9100;
 }
 
 html,
@@ -110,6 +130,14 @@ body {
     ellipse 50% 50% at 50% 50%,
     color-mix(in srgb, var(--color-ember) 15%, transparent) 0%,
     transparent 100%
+  );
+}
+
+@utility ember-glow {
+  background-image: radial-gradient(
+    ellipse 50% 50% at 50% 50%,
+    color-mix(in srgb, var(--color-ember) 15%, transparent) 0%,
+    transparent 96.46%
   );
 }
 

@@ -2,19 +2,25 @@ const VARIANTS = {
   centered: {
     root: "items-center text-center",
     eyebrow: "text-xs text-highlight",
-    title: "font-black text-white",
+    title: "text-4xl font-black text-white",
     body: "max-w-[881px] pt-4 leading-6.5 text-muted",
   },
   left: {
     root: "items-start text-left",
     eyebrow: "text-xs text-secondary",
-    title: "font-black text-white",
+    title: "text-4xl font-black text-white",
     body: "max-w-[834px] pt-3 leading-6 tracking-[-0.72px] text-white",
   },
   centeredGold: {
     root: "items-center text-center",
     eyebrow: "text-sm text-secondary",
-    title: "font-bold text-foreground",
+    title: "text-4xl font-bold text-foreground",
+    body: "",
+  },
+  leftPrimary: {
+    root: "items-start text-left",
+    eyebrow: "text-xs text-primary",
+    title: "text-2xl font-black text-white md:text-4xl",
     body: "",
   },
 };
@@ -48,7 +54,7 @@ export default function SectionHeading({
       ) : null}
 
       <h2
-        className={`pt-3 font-display text-4xl leading-10 tracking-[-0.72px] ${styles.title}`}
+        className={`pt-3 font-display leading-10 tracking-[-0.72px] ${styles.title}`}
       >
         {title}
       </h2>
