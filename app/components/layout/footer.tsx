@@ -8,7 +8,7 @@ export default function Footer() {
       <div className="w-full border-t border-white/6 p-8 text-center">
         <p className={TEXT}>
           © {new Date().getFullYear()} Rwanda Digital Development Research
-          Initiative. All rights reserved.
+          Initiative For Education Purposes Only. All rights reserved.
         </p>
         <p className={`${TEXT} pt-1`}>
           For inquiries, contact:{" "}

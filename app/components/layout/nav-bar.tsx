@@ -33,7 +33,7 @@ export default function NavBar() {
 
   return (
     <nav aria-label="Main">
-      <div className="mx-auto hidden h-[82px] w-full max-w-[1240px] items-center gap-[26px] rounded-2xl bg-accent/5 px-6 py-2.5 md:flex">
+      <div className="mx-auto hidden h-[82px] w-full max-w-[1240px] items-center gap-[26px] rounded-2xl bg-accent/5 px-6 py-2.5 backdrop-blur-xl md:flex">
         <div className="flex flex-1 items-center">
           <img src={rwLogo} alt="Rwanda Digital Evolution" className="size-11.5" />
         </div>
@@ -53,7 +53,7 @@ export default function NavBar() {
       </div>
 
       <div className="md:hidden">
-        <div className="flex h-18 w-full items-center rounded-2xl bg-ink/[0.39] px-6 py-2.5">
+        <div className="flex h-18 w-full items-center rounded-2xl bg-ink/[0.39] px-6 py-2.5 backdrop-blur-xl">
           <div className="flex flex-1 items-center">
             <img src={rwLogo} alt="Rwanda Digital Evolution" className="size-8.5" />
           </div>
@@ -78,7 +78,7 @@ export default function NavBar() {
           }`}
         >
           <div className="min-h-0">
-            <ul className="flex flex-col gap-1 rounded-2xl bg-ink/[0.39] px-6 py-2.5">
+            <ul className="flex flex-col gap-1 rounded-2xl bg-ink/[0.39] px-6 py-2.5 backdrop-blur-xl">
               {NAV_ITEMS.map((item) => (
                 <li key={item.to}>
                   <NavLink

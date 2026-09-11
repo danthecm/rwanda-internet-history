@@ -57,6 +57,14 @@
   /* Button hover state (Figma "button/hoval state" + "button/ text color") */
   --color-button-hover: #f7df62;
   --color-button-hover-text: #064723;
+
+  /* Stats panel (Figma "Container"); text/03 and Gray/200 */
+  --color-panel: #ebf6f0;
+  --color-panel-text: #033446;
+  --color-divider: #eaecf0;
+
+  /* Hero lead paragraph */
+  --color-muted-light: #aaaaaa;
 }
 
 /* Theme-dependent surfaces. `inline` keeps the utility pointing at the vars
@@ -94,4 +102,15 @@ body {
 @utility icon-arrow-right {
   mask: url("./assets/icons/arrow-right.svg") center / contain no-repeat;
   -webkit-mask: url("./assets/icons/arrow-right.svg") center / contain no-repeat;
+}
+
+/* Hero scrim. The comp layers three gradients, but two are degenerate
+   (0%-width stops at 3% alpha) and paint nothing — only this one is real. */
+@utility hero-scrim {
+  background-image: linear-gradient(
+    149.46deg,
+    var(--color-ink) 0%,
+    color-mix(in srgb, var(--color-ink) 71%, transparent) 48.783%,
+    color-mix(in srgb, var(--color-ink) 92%, transparent) 101.92%
+  );
 }
