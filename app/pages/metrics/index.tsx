@@ -1,3 +1,3 @@
 export default function MetricsPage() {
-  return null;
+  return <div>Socio-Economic Metrics</div>;
 }

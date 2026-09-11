@@ -3,6 +3,48 @@
 @theme {
   --font-sans: "Inter", ui-sans-serif, system-ui, sans-serif,
     "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+
+  /* Rectangle 2: Rwanda Sky Blue (Primary) */
+  --color-primary: #00A1DE;
+  --color-primary-50: #eff9ff;
+  --color-primary-100: #daf1ff;
+  --color-primary-200: #bee6ff;
+  --color-primary-300: #8ed6ff;
+  --color-primary-400: #55bdfc;
+  --color-primary-500: #00A1DE;
+  --color-primary-600: #0084ba;
+  --color-primary-700: #006894;
+  --color-primary-800: #04587a;
+  --color-primary-900: #094a66;
+  --color-primary-950: #062f43;
+
+  /* Rectangle 3: Rwanda Golden Yellow (Secondary) */
+  --color-secondary: #FAD201;
+  --color-secondary-50: #fefde8;
+  --color-secondary-100: #fdfac3;
+  --color-secondary-200: #fbf288;
+  --color-secondary-300: #fae444;
+  --color-secondary-400: #FAD201;
+  --color-secondary-500: #e3be00;
+  --color-secondary-600: #b58d00;
+  --color-secondary-700: #8b6403;
+  --color-secondary-800: #734f0a;
+  --color-secondary-900: #62410e;
+  --color-secondary-950: #392203;
+
+  /* Rectangle 4: Rwanda Forest Green (Accent) */
+  --color-accent: #20603D;
+  --color-accent-50: #f1f8f3;
+  --color-accent-100: #def0e3;
+  --color-accent-200: #bee1c8;
+  --color-accent-300: #93cca6;
+  --color-accent-400: #63b17f;
+  --color-accent-500: #3f955f;
+  --color-accent-600: #2d774a;
+  --color-accent-700: #20603D;
+  --color-accent-800: #1d4e33;
+  --color-accent-900: #19412c;
+  --color-accent-950: #0c2418;
 }
 
 html,
