@@ -1,5 +1,7 @@
 import Hero from "~/components/infrastructure/hero";
+import MobileEvolutionSection from "~/components/infrastructure/mobile-evolution-section";
 import NetworkSection from "~/components/infrastructure/network-section";
+import NextChapterSection from "~/components/infrastructure/next-chapter-section";
 import RoutingSection from "~/components/routing/routing-section";
 import StatsPanel from "~/components/ui/stats-panel";
 import { PEER_COUNT_STAT_ID, STATS } from "~/data/infrastructure";
@@ -29,6 +31,10 @@ export default function InfrastructurePage() {
       </div>
       <NetworkSection />
       <RoutingSection status={status} />
+      <MobileEvolutionSection />
+      <div className="mt-12 pb-16 md:mt-[65px] md:pb-[69px]">
+        <NextChapterSection />
+      </div>
     </>
   );
 }

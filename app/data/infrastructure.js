@@ -44,6 +44,52 @@ const RURA_REPORT = {
   asOf: "Q1 2026",
 };
 
+export const MOBILE_EVOLUTION = {
+  eyebrow: "MOBILE EVOLUTION",
+  title: "5G Deployment Timeline",
+  phases: [
+    {
+      phase: "Phase 1",
+      period: "2013–2022",
+      title: "The Shared Utility Model (WOAN / KTRN)",
+      description:
+        "Wholesale Open Access Network — shared infrastructure leased to retail providers",
+      points: [
+        "Government partnered with Korea Telecom to build a single wholesale network",
+        "Like a shared municipal power grid — KTRN supplied 4G wholesale to MTN & Airtel",
+        "Coverage expanded rapidly from 5% (2014) to 98.5% (2018)",
+      ],
+      accent: "solid",
+    },
+    {
+      phase: "Phase 2",
+      period: "2023",
+      title: "Market Reform",
+      description:
+        "Licensed invisible airwave frequencies that mobile towers use to broadcast wireless signals",
+      points: [
+        "Wholesale monopoly formally ended",
+        "MTN & Airtel granted direct radio spectrum licenses",
+        "Retail operators build and optimize their own cell towers",
+      ],
+      accent: "gradient",
+    },
+    {
+      phase: "Phase 3",
+      period: "June 2025",
+      title: "Commercial 5G Deployment",
+      description:
+        "Fifth-generation wireless — ultra-fast, low-latency connectivity for enterprise and consumers",
+      points: [
+        "MTN Rwanda & Airtel Rwanda launched 5G services",
+        "Commercial coverage across major urban hubs",
+        "Operator duopoly driving next-gen speed and latency",
+      ],
+      accent: "solid",
+    },
+  ],
+};
+
 export const PEER_COUNT_STAT_ID = "rinex-peers";
 
 export const STATS = {
@@ -63,4 +109,18 @@ export const STATS = {
       sourceUrl: "https://www.peeringdb.com/ix/1032",
     },
   ],
+};
+
+export const NEXT_CHAPTER = {
+  eyebrow: "🚀 NEXT CHAPTER",
+  title: [
+    { text: "See the human impact" },
+    { break: true },
+    { text: "of this infrastructure." },
+  ],
+  lead: "Explore digital public services, educational technology, and socio-economic inclusion.",
+  cta: {
+    label: "Next: Socio-Economic Metrics",
+    to: "/metrics",
+  },
 };
