@@ -1,8 +1,13 @@
 @import "tailwindcss";
 
+/* Drive `dark:` from a selector instead of `prefers-color-scheme`, so the site
+   follows its own design rather than the visitor's OS setting. */
+@custom-variant dark (&:where(.dark, .dark *));
+
 @theme {
   --font-sans: "Inter", ui-sans-serif, system-ui, sans-serif,
     "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+  --font-display: "Poppins", var(--font-sans);
 
   /* Rectangle 2: Rwanda Sky Blue (Primary) */
   --color-primary: #00A1DE;
@@ -45,13 +50,37 @@
   --color-accent-800: #1d4e33;
   --color-accent-900: #19412c;
   --color-accent-950: #0c2418;
+
+  /* Mobile nav bar base, applied at 39% opacity */
+  --color-ink: #0a0a0a;
+}
+
+/* Theme-dependent surfaces. `inline` keeps the utility pointing at the vars
+   below, so the palette flips without regenerating any utilities. */
+@theme inline {
+  --color-surface: var(--surface);
+  --color-surface-2: var(--surface-2);
+  --color-foreground: var(--foreground);
+  --color-muted: var(--muted);
+}
+
+/* Dark is the project default — no class on <html> is required to get it. */
+:root {
+  --surface: #1a1a1a;
+  --surface-2: #252525; /* footer band, one step lighter than --surface */
+  --foreground: #e9eef4;
+  --muted: #888888;
+}
+
+/* Defined so a future theme toggle has somewhere to go; nothing sets it yet. */
+:root:where(.light) {
+  --surface: #ffffff;
+  --surface-2: #f3f4f6;
+  --foreground: #1a1a1a;
+  --muted: #6b7280;
 }
 
 html,
 body {
-  @apply bg-white dark:bg-gray-950;
-
-  @media (prefers-color-scheme: dark) {
-    color-scheme: dark;
-  }
+  @apply bg-surface text-foreground;
 }
