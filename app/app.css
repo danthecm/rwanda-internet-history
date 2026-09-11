@@ -65,6 +65,33 @@
 
   /* Hero lead paragraph */
   --color-muted-light: #aaaaaa;
+
+  /* Media card (Figma "Component 2") and its 32% scrim */
+  --color-media: #211f1f;
+  --color-media-scrim: #1a1818;
+
+  /* Note card (Figma "Container"): cyan rule and body copy. The comp's #bbbbbb
+     only reached 3.9:1 on --color-accent; lightened to 5.2:1 for WCAG AA. */
+  --color-highlight: #20beff;
+  --color-muted-lighter: #d1d8d4;
+
+  /* Pillar card (Figma "Container"). The surface is fixed dark rather than
+     theme-dependent, so its body copy gets a fixed muted too. One value serves
+     both card surfaces: 6.7:1 here and 5.4:1 on --color-phase, where the comps'
+     #777 and #888 were 4.2:1 and 4.3:1 — both short of WCAG AA. */
+  --color-card: #141414;
+  --color-card-rule: rgba(255, 255, 255, 0.07);
+  --color-muted-card: #9a9a9a;
+
+  /* NICI phase card (Figma "Laying the Groundwork"); hover swaps the surface to
+     near-black per the Figma handoff note. The comp's #666 period line was
+     2.6:1 on the card, lifted to 4.7:1 and still a step below the body copy. */
+  --color-phase: #262726;
+  --color-phase-hover: #010f15;
+  --color-muted-dim: #8f8f8f;
+
+  /* Third pillar accent, alongside --color-highlight and --color-secondary. */
+  --color-pillar-green: #008751;
 }
 
 /* Theme-dependent surfaces. `inline` keeps the utility pointing at the vars
@@ -81,7 +108,10 @@
   --surface: #1a1a1a;
   --surface-2: #252525; /* footer band, one step lighter than --surface */
   --foreground: #e9eef4;
-  --muted: #888888;
+  /* The nav sits over the hero photo with a near-transparent bar, so --muted is
+     sized against the brightest pixel behind it, not against --surface: the
+     comp's #888888 was 3.3:1 there. 4.6:1 over the photo, 6.9:1 on --surface. */
+  --muted: #a3a3a3;
 }
 
 /* Defined so a future theme toggle has somewhere to go; nothing sets it yet. */
@@ -89,7 +119,8 @@
   --surface: #ffffff;
   --surface-2: #f3f4f6;
   --foreground: #1a1a1a;
-  --muted: #6b7280;
+  /* Darkened from #6b7280, which was 4.4:1 on --surface-2. */
+  --muted: #5b6472;
 }
 
 html,
@@ -102,6 +133,19 @@ body {
 @utility icon-arrow-right {
   mask: url("./assets/icons/arrow-right.svg") center / contain no-repeat;
   -webkit-mask: url("./assets/icons/arrow-right.svg") center / contain no-repeat;
+}
+
+/* Gold wash behind the NICI phase grid, on a 1651x493 box. Figma's gradient
+   matrix scales to 1167x349 semi-axes and is then clipped by the layer's own
+   ellipse, cutting the fill while it still carries ~4% alpha — which renders as
+   a hard arc in a browser. Fading to zero at the box edge instead keeps the
+   pool over the cards and loses the seam. */
+@utility nici-glow {
+  background-image: radial-gradient(
+    ellipse 50% 50% at 50% 50%,
+    color-mix(in srgb, var(--color-secondary) 15%, transparent) 0%,
+    transparent 100%
+  );
 }
 
 /* Hero scrim. The comp layers three gradients, but two are degenerate

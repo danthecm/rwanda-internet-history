@@ -1,17 +1,7 @@
 /** @typedef {{ value: string, label: string }} Stat */
 
-/** @type {Stat[]} */
-export const DEFAULT_STATS = [
-  { value: "4", label: "NICI Phases" },
-  { value: "2000", label: "Vision 2020 Launch" },
-  { value: "20+", label: "Years of ICT Governance" },
-];
-
-/** @param {{ stats?: Stat[], className?: string }} props */
-export default function StatsPanel({
-  stats = DEFAULT_STATS,
-  className = "",
-}) {
+/** @param {{ stats: Stat[], className?: string }} props */
+export default function StatsPanel({ stats, className = "" }) {
   return (
     <div
       className={`w-full rounded-[40px] bg-panel px-14 py-7.5 md:py-13.25 ${className}`}
@@ -28,7 +18,9 @@ export default function StatsPanel({
               />
             )}
             <div className="flex flex-1 flex-col gap-3 text-center">
-              <p className="font-sans text-6xl leading-18 font-semibold tracking-[-1.2px] text-primary">
+              {/* --color-primary is only 2.7:1 on --color-panel, below AA even
+                  for large text; primary-700 is the same hue at 5.6:1. */}
+              <p className="font-sans text-6xl leading-18 font-semibold tracking-[-1.2px] text-primary-700">
                 {stat.value}
               </p>
               <p className="font-sans text-lg leading-7 font-medium text-panel-text">
