@@ -12,9 +12,6 @@ export default function Hero() {
       />
       <div aria-hidden="true" className="hero-scrim absolute inset-0 -z-10" />
 
-      {/* Gutter sits on the outer element so the 1240 column itself stays 1240
-          wide. Putting px-* on the column would inset the text 32px inside it,
-          leaving the heading out of line with the nav bar's left edge. */}
       <div className="px-4 md:px-8">
         <div className="mx-auto flex max-w-[1240px] flex-col items-start gap-4.5 pt-32 pb-16 md:min-h-[842px] md:pt-[314px]">
           <div className="flex flex-col items-start gap-1.75">
@@ -25,8 +22,6 @@ export default function Hero() {
             </div>
 
             <div className="flex flex-col items-start gap-4.5">
-              {/* 78px is unusable on a phone; the comp is desktop-only, so the
-                  display size scales down below md. */}
               <h1 className="font-display text-[42px] leading-[46px] font-bold text-white md:text-[78px] md:leading-16">
                 <RichText segments={HERO.title} />
               </h1>
@@ -38,7 +33,7 @@ export default function Hero() {
             </div>
           </div>
 
-          <Button>{HERO.ctaLabel}</Button>
+          <Button href={HERO.cta.href}>{HERO.cta.label}</Button>
         </div>
       </div>
     </section>

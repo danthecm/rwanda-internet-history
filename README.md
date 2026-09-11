@@ -1,93 +1,83 @@
-# Welcome to React Router!
+# Rwanda's Digital Evolution
 
-A modern, production-ready template for building full-stack React applications using React Router.
+An interactive history of Rwanda's internet and ICT development, from the policy
+foundations laid after 1994 through to present-day infrastructure and
+socio-economic outcomes.
 
-[![Open in StackBlitz](https://developer.stackblitz.com/img/open_in_stackblitz.svg)](https://stackblitz.com/github/remix-run/react-router-templates/tree/main/default)
+Built with React Router 8 (framework mode, SSR), React 19 and Tailwind CSS 4.
 
-## Features
+## Pages
 
-- 🚀 Server-side rendering
-- ⚡️ Hot Module Replacement (HMR)
-- 📦 Asset bundling and optimization
-- 🔄 Data loading and mutations
-- ✨ Plain JavaScript — no build-time type checking
-- 🎉 TailwindCSS for styling
-- 📖 [React Router docs](https://reactrouter.com/)
+| Route             | Subject                                                     | Status      |
+| ----------------- | ----------------------------------------------------------- | ----------- |
+| `/`               | Policy foundations & genesis, 1994–2010 (Vision 2020, NICI)  | Complete    |
+| `/infrastructure` | The physical grid, domestic peering (RINEX & RICTA), 5G      | Stub        |
+| `/metrics`        | Digital public services (IremboGov) and Vision 2050 targets  | Stub        |
 
-## Getting Started
-
-### Installation
-
-Install the dependencies:
+## Getting started
 
 ```bash
 npm install
-```
-
-### Development
-
-Start the development server with HMR:
-
-```bash
 npm run dev
 ```
 
-Your application will be available at `http://localhost:3000`.
-
-### Linting
+The app runs at `http://localhost:3000`.
 
 ```bash
-npm run lint
+npm run lint     # ESLint
+npm run build    # production build into build/
+npm run start    # serve the production build
 ```
 
-## Building for Production
+## Project layout
 
-Create a production build:
-
-```bash
-npm run build
 ```
+app/
+├── assets/          Images and icons, imported by URL through Vite
+├── components/
+│   ├── layout/      Nav bar, footer, page shell — the frame around every route
+│   ├── policy/      Sections composing page 1 (one component per band)
+│   └── ui/          Reusable presentational primitives, no page knowledge
+├── data/            All copy and content, separated from presentation
+├── pages/           Page composition — arranges sections, holds no copy
+├── routes/          Thin route modules: meta tags plus the matching page
+├── app.css          Tailwind theme: design tokens and custom utilities
+└── routes.js        Route table, derived from data/navigation.js
+```
+
+### Conventions
+
+**Content lives in `app/data/`, never inline in a component.** Components take
+copy as props or import it from a data module. This keeps text editable without
+touching layout, and lets the same component serve several sections.
+
+**Design tokens live in `app/app.css`.** Colours are declared once in the
+`@theme` block and used through Tailwind utilities (`bg-panel`, `text-muted`).
+Several tokens deviate from the Figma comp to meet WCAG AA contrast — each of
+those carries a comment recording the original value and the measured ratio.
+Prefer a token over a raw hex or an arbitrary value.
+
+**`~/` resolves to `app/`.** The alias is declared in `vite.config.js`;
+`jsconfig.json` mirrors it for editor navigation only.
+
+**Pages clear the nav bar with `<Page>`.** The nav is absolutely positioned so
+the home hero can run underneath it, which means ordinary pages need their own
+top padding. `components/layout/page.jsx` supplies it along with the standard
+content column — use it for new pages rather than hand-rolling the padding.
 
 ## Deployment
 
-### Docker Deployment
-
-To build and run using Docker:
+A multi-stage `Dockerfile` is included:
 
 ```bash
-docker build -t my-app .
-
-# Run the container
-docker run -p 3000:3000 my-app
+docker build -t rwanda-internet-history .
+docker run -p 3000:3000 rwanda-internet-history
 ```
 
-The containerized application can be deployed to any platform that supports Docker, including:
+The built-in server (`npm run start`) is production-ready on any Node host.
+Deploying without Docker needs `package.json`, the lockfile, and `build/`.
 
-- AWS ECS
-- Google Cloud Run
-- Azure Container Apps
-- Digital Ocean App Platform
-- Fly.io
-- Railway
+## Attribution
 
-### DIY Deployment
-
-If you're familiar with deploying Node applications, the built-in app server is production-ready.
-
-Make sure to deploy the output of `npm run build`
-
-```
-├── package.json
-├── package-lock.json (or pnpm-lock.yaml, or bun.lockb)
-├── build/
-│   ├── client/    # Static assets
-│   └── server/    # Server-side code
-```
-
-## Styling
-
-This template comes with [Tailwind CSS](https://tailwindcss.com/) already configured for a simple default starting experience. You can use whatever CSS framework you prefer.
-
----
-
-Built with ❤️ using React Router.
+Photography is credited in place. Written for educational purposes as part of a
+University of London project.

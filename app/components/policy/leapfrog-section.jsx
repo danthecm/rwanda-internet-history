@@ -17,8 +17,6 @@ export default function LeapfrogSection() {
             />
           </div>
 
-          {/* At xl this container overlays the image, so let clicks through to
-              the photo credit and re-enable them on the note card itself. */}
           <div className="relative py-6 xl:flex xl:h-full xl:items-center xl:py-0 xl:pointer-events-none">
             <div className="w-full xl:ml-auto xl:w-[672px] xl:pointer-events-auto">
               <NoteCard>

@@ -16,7 +16,6 @@ export default function NiciSection() {
           </SectionHeading>
         </div>
 
-        {/* The grid sits in a narrower column than the heading, as in the comp. */}
         <div className="relative mx-auto mt-12 max-w-[1071px] md:mt-[73px]">
           <div
             aria-hidden="true"

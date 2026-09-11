@@ -7,9 +7,8 @@ import { defineConfig } from "vite";
 export default defineConfig({
   plugins: [tailwindcss(), reactRouter()],
   resolve: {
-    // Replaces `tsconfigPaths: true`, which used to resolve `~/*` from
-    // tsconfig.json. Vite does not read jsconfig.json, so the alias is
-    // declared here; jsconfig.json only mirrors it for the editor.
+    // Vite does not read jsconfig.json, so `~/*` is declared here;
+    // jsconfig.json only mirrors it for the editor.
     alias: [
       {
         find: /^~\//,

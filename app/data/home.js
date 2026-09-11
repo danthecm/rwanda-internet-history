@@ -1,5 +1,7 @@
-import agriculture from "~/assets/images/agriculture.png";
-import heroBg from "~/assets/images/hero-bg.jpg";
+import agriculture from "~/assets/images/agriculture.webp";
+import heroBg from "~/assets/images/hero-bg.webp";
+
+const VISION_ID = "vision-2020";
 
 export const HERO = {
   image: heroBg,
@@ -9,8 +11,11 @@ export const HERO = {
     { break: true },
     { text: "Evolution", className: "text-primary" },
   ],
-  lead: "From Post-Conflict to Tech Hub — starting from ground zero after 1994, Rwanda chose telecommunications and digital infrastructure as the foundation to rebuild its national economy.",
-  ctaLabel: "Explore Policy History",
+  lead: "Starting from ground zero after 1994, Rwanda chose telecommunications and digital infrastructure as the foundation to rebuild its national economy.",
+  cta: {
+    label: "Explore Policy History",
+    href: `#${VISION_ID}`,
+  },
 };
 
 export const STATS = [
@@ -40,6 +45,7 @@ export const LEAPFROG = {
 };
 
 export const VISION = {
+  id: VISION_ID,
   eyebrow: "THE 20-YEAR DESTINATION",
   title: "Vision 2020",
   body: [
@@ -60,6 +66,52 @@ export const NICI = {
   eyebrow: "THE 5-YEAR IMPLEMENTATION ENGINES",
   title: "NICI Phases",
   body: "Vision 2020 set the 20-year goal; the National Information and Communications Infrastructure (NICI) plans were the four 5-year roadmaps built to execute it step by step.",
+};
+
+export const MILESTONES_HEADING = {
+  eyebrow: "INSTITUTIONAL MILESTONES",
+  title: "The Rules & Gateways",
+};
+
+export const MILESTONES = [
+  {
+    year: "2000",
+    title: "Vision 2020 Adoption",
+    body: "Established the long-term national strategic framework to transition the economy from agrarian foundations to an information-rich, knowledge-based service hub.",
+  },
+  {
+    year: "2001",
+    title: "Market Liberalization",
+    body: "Enacted the formal deregulation of the telecommunications industry, dismantling legacy state monopolies to encourage private investment and competition.",
+  },
+  {
+    year: "2002",
+    title: "Regulatory Establishment (RURA)",
+    body: "Launched the Rwanda Utilities Regulatory Authority as an autonomous body to govern frequency spectrum, licensing, and consumer-provider relations.",
+  },
+  {
+    year: "2004",
+    title: "Foundation of RINEX",
+    body: "Created the Rwanda Internet Exchange Point to localize domestic traffic routing, reducing reliance on expensive and high-latency overseas satellite gateways.",
+  },
+  {
+    year: "2005",
+    title: "Formation of RICTA",
+    body: "Established the Rwanda Internet Community and Technology Alliance to provide governance and administrative oversight for the .rw country-code top-level domain (ccTLD).",
+  },
+];
+
+export const NEXT_CHAPTER = {
+  eyebrow: "NEXT CHAPTER",
+  title: [
+    { text: "See how policy paved the way" },
+    { break: true },
+    { text: "for infrastructure." },
+  ],
+  cta: {
+    label: "Next: Infrastructure Details",
+    to: "/infrastructure",
+  },
 };
 
 export const NICI_PHASES = [

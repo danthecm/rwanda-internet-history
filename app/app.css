@@ -1,15 +1,15 @@
 @import "tailwindcss";
 
-/* Drive `dark:` from a selector instead of `prefers-color-scheme`, so the site
-   follows its own design rather than the visitor's OS setting. */
-@custom-variant dark (&:where(.dark, .dark *));
-
 @theme {
   --font-sans: "Inter", ui-sans-serif, system-ui, sans-serif,
     "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
   --font-display: "Poppins", var(--font-sans);
 
-  /* Rectangle 2: Rwanda Sky Blue (Primary) */
+  --color-surface: #1a1a1a;
+  --color-surface-2: #252525;
+  --color-foreground: #e9eef4;
+  --color-muted: #a3a3a3;
+
   --color-primary: #00A1DE;
   --color-primary-50: #eff9ff;
   --color-primary-100: #daf1ff;
@@ -23,7 +23,6 @@
   --color-primary-900: #094a66;
   --color-primary-950: #062f43;
 
-  /* Rectangle 3: Rwanda Golden Yellow (Secondary) */
   --color-secondary: #FAD201;
   --color-secondary-50: #fefde8;
   --color-secondary-100: #fdfac3;
@@ -37,7 +36,6 @@
   --color-secondary-900: #62410e;
   --color-secondary-950: #392203;
 
-  /* Rectangle 4: Rwanda Forest Green (Accent) */
   --color-accent: #20603D;
   --color-accent-50: #f1f8f3;
   --color-accent-100: #def0e3;
@@ -51,76 +49,36 @@
   --color-accent-900: #19412c;
   --color-accent-950: #0c2418;
 
-  /* Mobile nav bar base, applied at 39% opacity */
   --color-ink: #0a0a0a;
 
-  /* Button hover state (Figma "button/hoval state" + "button/ text color") */
   --color-button-hover: #f7df62;
   --color-button-hover-text: #064723;
 
-  /* Stats panel (Figma "Container"); text/03 and Gray/200 */
   --color-panel: #ebf6f0;
   --color-panel-text: #033446;
   --color-divider: #eaecf0;
 
-  /* Hero lead paragraph */
   --color-muted-light: #aaaaaa;
 
-  /* Media card (Figma "Component 2") and its 32% scrim */
   --color-media: #211f1f;
   --color-media-scrim: #1a1818;
 
-  /* Note card (Figma "Container"): cyan rule and body copy. The comp's #bbbbbb
-     only reached 3.9:1 on --color-accent; lightened to 5.2:1 for WCAG AA. */
   --color-highlight: #20beff;
   --color-muted-lighter: #d1d8d4;
 
-  /* Pillar card (Figma "Container"). The surface is fixed dark rather than
-     theme-dependent, so its body copy gets a fixed muted too. One value serves
-     both card surfaces: 6.7:1 here and 5.4:1 on --color-phase, where the comps'
-     #777 and #888 were 4.2:1 and 4.3:1 — both short of WCAG AA. */
   --color-card: #141414;
   --color-card-rule: rgba(255, 255, 255, 0.07);
   --color-muted-card: #9a9a9a;
 
-  /* NICI phase card (Figma "Laying the Groundwork"); hover swaps the surface to
-     near-black per the Figma handoff note. The comp's #666 period line was
-     2.6:1 on the card, lifted to 4.7:1 and still a step below the body copy. */
   --color-phase: #262726;
   --color-phase-hover: #010f15;
   --color-muted-dim: #8f8f8f;
 
-  /* Third pillar accent, alongside --color-highlight and --color-secondary. */
   --color-pillar-green: #008751;
-}
 
-/* Theme-dependent surfaces. `inline` keeps the utility pointing at the vars
-   below, so the palette flips without regenerating any utilities. */
-@theme inline {
-  --color-surface: var(--surface);
-  --color-surface-2: var(--surface-2);
-  --color-foreground: var(--foreground);
-  --color-muted: var(--muted);
-}
+  --color-milestone: #00202c;
 
-/* Dark is the project default — no class on <html> is required to get it. */
-:root {
-  --surface: #1a1a1a;
-  --surface-2: #252525; /* footer band, one step lighter than --surface */
-  --foreground: #e9eef4;
-  /* The nav sits over the hero photo with a near-transparent bar, so --muted is
-     sized against the brightest pixel behind it, not against --surface: the
-     comp's #888888 was 3.3:1 there. 4.6:1 over the photo, 6.9:1 on --surface. */
-  --muted: #a3a3a3;
-}
-
-/* Defined so a future theme toggle has somewhere to go; nothing sets it yet. */
-:root:where(.light) {
-  --surface: #ffffff;
-  --surface-2: #f3f4f6;
-  --foreground: #1a1a1a;
-  /* Darkened from #6b7280, which was 4.4:1 on --surface-2. */
-  --muted: #5b6472;
+  --color-ember: #ff6b00;
 }
 
 html,
@@ -128,18 +86,17 @@ body {
   @apply bg-surface text-foreground;
 }
 
-/* Paint the exported arrow through a mask so it inherits the current text
-   color, rather than shipping one asset per color variant. */
+@media (prefers-reduced-motion: no-preference) {
+  html {
+    scroll-behavior: smooth;
+  }
+}
+
 @utility icon-arrow-right {
   mask: url("./assets/icons/arrow-right.svg") center / contain no-repeat;
   -webkit-mask: url("./assets/icons/arrow-right.svg") center / contain no-repeat;
 }
 
-/* Gold wash behind the NICI phase grid, on a 1651x493 box. Figma's gradient
-   matrix scales to 1167x349 semi-axes and is then clipped by the layer's own
-   ellipse, cutting the fill while it still carries ~4% alpha — which renders as
-   a hard arc in a browser. Fading to zero at the box edge instead keeps the
-   pool over the cards and loses the seam. */
 @utility nici-glow {
   background-image: radial-gradient(
     ellipse 50% 50% at 50% 50%,
@@ -148,8 +105,14 @@ body {
   );
 }
 
-/* Hero scrim. The comp layers three gradients, but two are degenerate
-   (0%-width stops at 3% alpha) and paint nothing — only this one is real. */
+@utility milestones-glow {
+  background-image: radial-gradient(
+    ellipse 50% 50% at 50% 50%,
+    color-mix(in srgb, var(--color-ember) 15%, transparent) 0%,
+    transparent 100%
+  );
+}
+
 @utility hero-scrim {
   background-image: linear-gradient(
     149.46deg,
