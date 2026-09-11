@@ -5,9 +5,8 @@
   "scripts": {
     "build": "react-router build",
     "dev": "react-router dev --host 0.0.0.0 --port 3000",
-    "lint": "react-router typegen && tsc",
-    "start": "react-router-serve ./build/server/index.js",
-    "typecheck": "react-router typegen && tsc"
+    "lint": "eslint .",
+    "start": "react-router-serve ./build/server/index.js"
   },
   "dependencies": {
     "@react-router/node": "^8",
@@ -18,13 +17,14 @@
     "react-router": "^8"
   },
   "devDependencies": {
+    "@eslint/js": "^9",
     "@react-router/dev": "^8",
     "@tailwindcss/vite": "^4.2.2",
-    "@types/node": "^22",
-    "@types/react": "^19.2.14",
-    "@types/react-dom": "^19.2.3",
+    "eslint": "^9",
+    "eslint-plugin-react": "^7",
+    "eslint-plugin-react-hooks": "^7",
+    "globals": "^16",
     "tailwindcss": "^4.2.2",
-    "typescript": "^5.9.3",
     "vite": "^8.0.3"
   }
 }

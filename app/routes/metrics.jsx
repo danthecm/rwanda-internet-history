@@ -1,7 +1,6 @@
-import type { Route } from "./+types/metrics";
 import MetricsPage from "~/pages/metrics";
 
-export function meta({}: Route.MetaArgs) {
+export function meta() {
   return [
     { title: "Digital Public Services & Socio-Economic Metrics | Rwanda Digital Evolution" },
     {

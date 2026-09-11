@@ -19,8 +19,8 @@ const LINK_BASE =
 const LINK_ACTIVE = "border-primary text-secondary";
 const LINK_INACTIVE = "border-transparent text-muted hover:text-foreground";
 
-function navLinkClass(extra: string) {
-  return ({ isActive }: { isActive: boolean }) =>
+function navLinkClass(extra) {
+  return ({ isActive }) =>
     `${LINK_BASE} ${extra} ${isActive ? LINK_ACTIVE : LINK_INACTIVE}`;
 }
 
@@ -28,7 +28,11 @@ export default function NavBar() {
   const [isOpen, setIsOpen] = useState(false);
   const { pathname } = useLocation();
 
-  // Collapse the mobile panel once navigation settles on a new route.
+  // Collapse the mobile panel once navigation settles on a new route. This
+  // resets state from a route change rather than syncing an external system,
+  // which is what the rule is aimed at; the cascading render is a cheap,
+  // one-off close and closing on click alone would miss back/forward nav.
+  // eslint-disable-next-line react-hooks/set-state-in-effect
   useEffect(() => setIsOpen(false), [pathname]);
 
   return (

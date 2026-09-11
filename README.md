@@ -10,7 +10,7 @@ A modern, production-ready template for building full-stack React applications u
 - ⚡️ Hot Module Replacement (HMR)
 - 📦 Asset bundling and optimization
 - 🔄 Data loading and mutations
-- 🔒 TypeScript by default
+- ✨ Plain JavaScript — no build-time type checking
 - 🎉 TailwindCSS for styling
 - 📖 [React Router docs](https://reactrouter.com/)
 
@@ -32,7 +32,13 @@ Start the development server with HMR:
 npm run dev
 ```
 
-Your application will be available at `http://localhost:5173`.
+Your application will be available at `http://localhost:3000`.
+
+### Linting
+
+```bash
+npm run lint
+```
 
 ## Building for Production
 

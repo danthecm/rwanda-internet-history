@@ -1,20 +1,17 @@
-type Stat = { value: string; label: string };
+/** @typedef {{ value: string, label: string }} Stat */
 
-export const DEFAULT_STATS: Stat[] = [
+/** @type {Stat[]} */
+export const DEFAULT_STATS = [
   { value: "4", label: "NICI Phases" },
   { value: "2000", label: "Vision 2020 Launch" },
   { value: "20+", label: "Years of ICT Governance" },
 ];
 
-type StatsPanelProps = {
-  stats?: Stat[];
-  className?: string;
-};
-
+/** @param {{ stats?: Stat[], className?: string }} props */
 export default function StatsPanel({
   stats = DEFAULT_STATS,
   className = "",
-}: StatsPanelProps) {
+}) {
   return (
     <div
       className={`w-full rounded-[40px] bg-panel px-14 py-7.5 md:py-13.25 ${className}`}

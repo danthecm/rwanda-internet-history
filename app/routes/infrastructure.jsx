@@ -1,7 +1,6 @@
-import type { Route } from "./+types/infrastructure";
 import InfrastructurePage from "~/pages/infrastructure";
 
-export function meta({}: Route.MetaArgs) {
+export function meta() {
   return [
     { title: "Physical Infrastructure & Broadband Evolution | Rwanda Digital Evolution" },
     {

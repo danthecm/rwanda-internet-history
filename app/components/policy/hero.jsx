@@ -23,7 +23,8 @@ export default function Hero() {
             {/* 78px is unusable on a phone; the comp is desktop-only, so the
                 display size scales down below md. */}
             <h1 className="font-display text-[42px] leading-[46px] font-bold text-white md:text-[78px] md:leading-16">
-              Rwanda's Digital <span className="text-primary">Renaissance</span>
+              Rwanda&apos;s Digital{" "}
+              <span className="text-primary">Renaissance</span>
             </h1>
             <div className="pb-4">
               <p className="max-w-[939px] font-display text-xl leading-8.5 font-normal text-muted-light">

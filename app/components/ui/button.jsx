@@ -1,4 +1,3 @@
-import type { ComponentPropsWithoutRef, ReactNode } from "react";
 import { Link } from "react-router";
 
 // 44px tall in the comp, which falls out of py-3 (12+12) + leading-5 (20).
@@ -6,17 +5,17 @@ import { Link } from "react-router";
 const BUTTON_BASE =
   "inline-flex items-center gap-3 rounded-sm bg-secondary px-6 py-3 font-display text-sm leading-5 font-semibold text-accent transition-colors hover:bg-button-hover hover:text-button-hover-text focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary";
 
-type CommonProps = { children: ReactNode; className?: string };
-
-type ButtonAsLink = CommonProps &
-  Omit<ComponentPropsWithoutRef<typeof Link>, "children" | "className">;
-
-type ButtonAsButton = CommonProps &
-  Omit<ComponentPropsWithoutRef<"button">, "children" | "className"> & {
-    to?: never;
-  };
-
-export default function Button(props: ButtonAsLink | ButtonAsButton) {
+/**
+ * Renders a `<Link>` when `to` is given, otherwise a `<button>`. Any extra props
+ * are forwarded to whichever element is rendered.
+ *
+ * @param {{
+ *   children: React.ReactNode,
+ *   className?: string,
+ *   to?: import("react-router").To,
+ * } & Record<string, unknown>} props
+ */
+export default function Button(props) {
   const { children, className = "", ...rest } = props;
 
   // The arrow is decorative — the label carries the meaning. `bg-current`
