@@ -53,6 +53,10 @@
 
   /* Mobile nav bar base, applied at 39% opacity */
   --color-ink: #0a0a0a;
+
+  /* Button hover state (Figma "button/hoval state" + "button/ text color") */
+  --color-button-hover: #f7df62;
+  --color-button-hover-text: #064723;
 }
 
 /* Theme-dependent surfaces. `inline` keeps the utility pointing at the vars
@@ -83,4 +87,11 @@
 html,
 body {
   @apply bg-surface text-foreground;
+}
+
+/* Paint the exported arrow through a mask so it inherits the current text
+   color, rather than shipping one asset per color variant. */
+@utility icon-arrow-right {
+  mask: url("./assets/icons/arrow-right.svg") center / contain no-repeat;
+  -webkit-mask: url("./assets/icons/arrow-right.svg") center / contain no-repeat;
 }
