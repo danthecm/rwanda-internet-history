@@ -1,6 +1,7 @@
 import ClassroomSection from "~/components/metrics/classroom-section";
 import HealthcareSection from "~/components/metrics/healthcare-section";
 import Hero from "~/components/metrics/hero";
+import IremboSection from "~/components/metrics/irembo-section";
 import StatsPanel from "~/components/ui/stats-panel";
 import { STATS } from "~/data/metrics";
 
@@ -18,6 +19,7 @@ export default function MetricsPage() {
 
       <ClassroomSection />
       <HealthcareSection />
+      <IremboSection />
     </>
   );
 }
