@@ -1,3 +1,4 @@
+import ClassroomSection from "~/components/metrics/classroom-section";
 import Hero from "~/components/metrics/hero";
 import StatsPanel from "~/components/ui/stats-panel";
 import { STATS } from "~/data/metrics";
@@ -13,6 +14,8 @@ export default function MetricsPage() {
       >
         <StatsPanel stats={STATS.items} variant="compact" />
       </div>
+
+      <ClassroomSection />
     </>
   );
 }
