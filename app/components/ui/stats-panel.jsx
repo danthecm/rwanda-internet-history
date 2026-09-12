@@ -12,7 +12,8 @@ import SourceNote from "~/components/ui/source-note";
 
 const VALUE_VARIANTS = {
   display: "font-sans text-6xl leading-18 tracking-[-1.2px] text-primary-700",
-  compact: "font-display text-[40px] leading-[45px] tracking-[-0.8px] text-primary",
+  compact:
+    "font-display text-[40px] leading-[45px] tracking-[-0.8px] text-primary-700",
 };
 
 /**
