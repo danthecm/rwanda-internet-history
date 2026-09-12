@@ -1,12 +1,12 @@
-import { LANDING_POINT_IDS } from "~/data/routing.js";
+import { LANDING_POINT_IDS } from "~/data/fiber-network.js";
 import { failed, ok } from "~/services/api-response.js";
-import { subseaService } from "~/services/subsea-service.js";
+import { getCables, getLandingPoints } from "~/services/subsea-service.js";
 
 export async function loader() {
   try {
     const [cables, landingPoints] = await Promise.all([
-      subseaService.getCables(),
-      subseaService.getLandingPoints(LANDING_POINT_IDS),
+      getCables(),
+      getLandingPoints(LANDING_POINT_IDS),
     ]);
 
     const stations = LANDING_POINT_IDS.map((id) => ({

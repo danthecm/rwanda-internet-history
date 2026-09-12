@@ -4,80 +4,13 @@ import {
   faRoad,
 } from "@fortawesome/free-solid-svg-icons";
 
-import agriculture from "~/assets/images/agriculture.webp";
-import heroBg from "~/assets/images/hero-bg.webp";
+export const VISION_ID = "vision-2020";
 
-const VISION_ID = "vision-2020";
-
-export const HERO = {
-  image: heroBg,
-  eyebrow: "Policy Foundations · 1994–2010",
-  title: [
-    { text: "Rwanda's Digital " },
-    { break: true },
-    { text: "Evolution", className: "text-primary" },
-  ],
-  lead: "Starting from ground zero after 1994, Rwanda chose telecommunications and digital infrastructure as the foundation to rebuild its national economy.",
-  cta: {
-    label: "Explore Policy History",
-    href: `#${VISION_ID}`,
-  },
-};
-
-export const STATS = [
+export const POLICY_STATS = [
   { value: "4", label: "NICI Phases" },
   { value: "2000", label: "Vision 2020 Launch" },
   { value: "20+", label: "Years of ICT Governance" },
 ];
-
-export const LEAPFROG = {
-  image: agriculture,
-  imageAlt:
-    "A tea picker carrying a basket of freshly picked leaves in a Rwandan plantation",
-  imageCredit: {
-    label: "Photo: FAO Rwanda",
-    href: "https://www.fao.org/rwanda/",
-  },
-  note: [
-    { text: "In 1994, ", className: "font-bold text-secondary" },
-    {
-      text: "Rwanda was an agrarian economy with almost no working telephone lines or internet connectivity. Rather than waiting decades to build heavy industrial factories, the nation decided to ",
-    },
-    {
-      text: "leapfrog directly into digital services.",
-      className: "font-semibold text-secondary",
-    },
-  ],
-};
-
-export const VISION = {
-  id: VISION_ID,
-  eyebrow: "THE 20-YEAR DESTINATION",
-  title: "Vision 2020",
-  body: [
-    {
-      text: "Vision 2020 was the master ambition launched in 2000 to transform Rwanda from subsistence farming into a modern, thriving ",
-    },
-    {
-      text: '"knowledge-based" economy',
-      className: "font-semibold text-white",
-    },
-    {
-      text: " — where people use technology, skills, and innovation to create wealth and improve daily life.",
-    },
-  ],
-};
-
-export const NICI = {
-  eyebrow: "THE 5-YEAR IMPLEMENTATION ENGINES",
-  title: "NICI Phases",
-  body: "Vision 2020 set the 20-year goal; the National Information and Communications Infrastructure (NICI) plans were the four 5-year roadmaps built to execute it step by step.",
-};
-
-export const MILESTONES_HEADING = {
-  eyebrow: "INSTITUTIONAL MILESTONES",
-  title: "The Rules & Gateways",
-};
 
 export const MILESTONES = [
   {
@@ -106,19 +39,6 @@ export const MILESTONES = [
     body: "Established the Rwanda Internet Community and Technology Alliance to provide governance and administrative oversight for the .rw country-code top-level domain (ccTLD).",
   },
 ];
-
-export const NEXT_CHAPTER = {
-  eyebrow: "NEXT CHAPTER",
-  title: [
-    { text: "See how policy paved the way" },
-    { break: true },
-    { text: "for infrastructure." },
-  ],
-  cta: {
-    label: "Next: Infrastructure Details",
-    to: "/infrastructure",
-  },
-};
 
 export const NICI_PHASES = [
   {

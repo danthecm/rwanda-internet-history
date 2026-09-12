@@ -18,11 +18,15 @@ export async function loader() {
       {
         exchange,
         peerCount: members.length,
-        routeServerPeers: members.filter((member) => member.routeServerPeer).length,
+        routeServerPeers: members.filter((member) => member.routeServerPeer)
+          .length,
         capacityMbps,
         facility: pch,
       },
-      { source: "PeeringDB", sourceUrl: `https://www.peeringdb.com/ix/${exchange.id}` },
+      {
+        source: "PeeringDB",
+        sourceUrl: `https://www.peeringdb.com/ix/${exchange.id}`,
+      },
     );
   } catch (error) {
     return failed(error);

@@ -1,8 +1,9 @@
 @import "tailwindcss";
 
 @theme {
-  --font-sans: "Inter", ui-sans-serif, system-ui, sans-serif,
-    "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+  --font-sans:
+    "Inter", ui-sans-serif, system-ui, sans-serif, "Apple Color Emoji",
+    "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
   --font-display: "Poppins", var(--font-sans);
   --font-mono: "Cousine", ui-monospace, SFMono-Regular, Menlo, monospace;
 
@@ -11,44 +12,13 @@
   --color-foreground: #e9eef4;
   --color-muted: #a3a3a3;
 
-  --color-primary: #00A1DE;
-  --color-primary-50: #eff9ff;
-  --color-primary-100: #daf1ff;
-  --color-primary-200: #bee6ff;
-  --color-primary-300: #8ed6ff;
-  --color-primary-400: #55bdfc;
-  --color-primary-500: #00A1DE;
-  --color-primary-600: #0084ba;
+  --color-primary: #00a1de;
   --color-primary-700: #006894;
-  --color-primary-800: #04587a;
-  --color-primary-900: #094a66;
-  --color-primary-950: #062f43;
 
-  --color-secondary: #FAD201;
-  --color-secondary-50: #fefde8;
-  --color-secondary-100: #fdfac3;
-  --color-secondary-200: #fbf288;
-  --color-secondary-300: #fae444;
-  --color-secondary-400: #FAD201;
-  --color-secondary-500: #e3be00;
-  --color-secondary-600: #b58d00;
-  --color-secondary-700: #8b6403;
-  --color-secondary-800: #734f0a;
+  --color-secondary: #fad201;
   --color-secondary-900: #62410e;
-  --color-secondary-950: #392203;
 
-  --color-accent: #20603D;
-  --color-accent-50: #f1f8f3;
-  --color-accent-100: #def0e3;
-  --color-accent-200: #bee1c8;
-  --color-accent-300: #93cca6;
-  --color-accent-400: #63b17f;
-  --color-accent-500: #3f955f;
-  --color-accent-600: #2d774a;
-  --color-accent-700: #20603D;
-  --color-accent-800: #1d4e33;
-  --color-accent-900: #19412c;
-  --color-accent-950: #0c2418;
+  --color-accent: #20603d;
 
   --color-ink: #0a0a0a;
 
@@ -59,23 +29,19 @@
   --color-panel-text: #033446;
   --color-divider: #eaecf0;
 
-  --color-muted-light: #aaaaaa;
-
   --color-media: #211f1f;
   --color-media-scrim: #1a1818;
 
   --color-highlight: #20beff;
-  --color-muted-lighter: #d1d8d4;
 
   --color-card: #141414;
   --color-card-rule: rgba(255, 255, 255, 0.07);
   --color-card-label: #666666;
   --color-card-body: #777777;
-  --color-muted-card: #9a9a9a;
+  --color-card-lead: #bfbaba;
 
   --color-phase: #262726;
   --color-phase-hover: #010f15;
-  --color-muted-dim: #8f8f8f;
 
   --color-pillar-green: #008751;
 
@@ -98,7 +64,6 @@
   --color-console-badge-edge: #065f46;
   --color-console-amber: #f59e0b;
   --color-console-subsea: #00e5ff;
-  --color-console-transit: #ff9100;
 }
 
 html,

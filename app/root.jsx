@@ -8,9 +8,6 @@ import {
   ScrollRestoration,
 } from "react-router";
 
-// Font Awesome injects its stylesheet from JS on first icon render by default,
-// which under SSR flashes full-size icons and trips hydration. Import the
-// stylesheet instead so React Router emits it as a <link> via <Links />.
 import "@fortawesome/fontawesome-svg-core/styles.css";
 import "./app.css";
 
@@ -19,7 +16,7 @@ config.autoAddCss = false;
 export const links = () => [
   { rel: "icon", href: "/favicon.ico", sizes: "48x48" },
   { rel: "icon", href: "/favicon.svg", type: "image/svg+xml" },
-  { rel: "apple-touch-icon", href: "/apple-touch-icon.png" },
+  { rel: "apple-touch-icon", href: "/logo.png" },
   { rel: "preconnect", href: "https://fonts.googleapis.com" },
   {
     rel: "preconnect",

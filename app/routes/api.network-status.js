@@ -6,7 +6,7 @@ export async function loader() {
     const status = await peeringService.getStatus();
     return ok(status, {
       source: "PeeringDB",
-      sourceUrl: "https://www.peeringdb.com/ix/1032",
+      sourceUrl: `https://www.peeringdb.com/ix/${status.exchangeId}`,
       maxAge: 0,
     });
   } catch (error) {

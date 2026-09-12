@@ -1,34 +1,52 @@
-import ClassroomSection from "~/components/metrics/classroom-section";
-import ForwardSection from "~/components/metrics/forward-section";
-import HealthcareSection from "~/components/metrics/healthcare-section";
-import Hero from "~/components/metrics/hero";
-import IremboSection from "~/components/metrics/irembo-section";
-import NextChapterSection from "~/components/metrics/next-chapter-section";
-import ParadoxSection from "~/components/metrics/paradox-section";
-import StatsPanel from "~/components/ui/stats-panel";
-import { STATS } from "~/data/metrics";
+import { faClockRotateLeft } from "@fortawesome/free-solid-svg-icons";
+import AdoptionSection from "~/components/metrics/AdoptionSection";
+import ClassroomSection from "~/components/metrics/ClassroomSection";
+import ForwardSection from "~/components/metrics/ForwardSection";
+import HealthcareSection from "~/components/metrics/HealthcareSection";
+import IremboSection from "~/components/metrics/IremboSection";
+import NextChapterSection from "~/components/ui/NextChapterSection";
+import PageHero from "~/components/ui/PageHero";
+import StatsPanel from "~/components/ui/StatsPanel";
+import { METRICS_STATS } from "~/data/metrics";
 
-export default function MetricsPage() {
+const MetricsPage = () => {
   return (
     <>
-      <Hero />
+      <PageHero
+        content={{
+          eyebrow:
+            "Digital Public Services · Educational Initiatives · Inclusion",
+          title: "Empowering Rwanda",
+          lead: "From classrooms and clinics to pocket governance: how broadband infrastructure sparked economic modernization, and the ongoing challenge of turning 98.5% network coverage into everyday adoption.",
+        }}
+        accent={{
+          badge: "border-secondary/30 bg-secondary/30",
+          text: "text-secondary",
+        }}
+      />
 
-      <div
-        id={STATS.id}
-        className="relative z-10 mx-auto w-full max-w-[1045px] px-4 md:-mt-[56px] md:px-8 lg:-mt-[72px] xl:-mt-[90px]"
-      >
-        <StatsPanel stats={STATS.items} variant="compact" />
+      <div className="relative z-10 mx-auto w-full max-w-[1045px] px-4 md:-mt-[56px] md:px-8 lg:-mt-[72px] xl:-mt-[90px]">
+        <StatsPanel stats={METRICS_STATS} />
       </div>
 
       <ClassroomSection />
       <HealthcareSection />
       <IremboSection />
-      <ParadoxSection />
+      <AdoptionSection />
       <ForwardSection />
-
-      <div className="mt-12 pb-16 md:mt-[65px] md:pb-[69px]">
-        <NextChapterSection />
-      </div>
+      <NextChapterSection
+        eyebrow="REVIEW THE FOUNDATION"
+        eyebrowIcon={faClockRotateLeft}
+        title={[
+          { text: "See the roadmap that" },
+          { break: true },
+          { text: "made this possible." },
+        ]}
+        lead="Review Policy History — Vision 2020 foundations and NICI strategic phases."
+        cta={{ label: "Back to Policy History", to: "/" }}
+      />
     </>
   );
-}
+};
+
+export default MetricsPage;

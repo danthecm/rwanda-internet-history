@@ -11,7 +11,7 @@ const API_ROUTES = [
 
 export default [
   layout(
-    "./components/layout/layout.jsx",
+    "./components/layout/AppLayout.jsx",
     NAV_ITEMS.map((item) =>
       item.to === "/" ? index(item.file) : route(item.to.slice(1), item.file),
     ),

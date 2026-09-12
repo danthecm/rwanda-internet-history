@@ -1,137 +1,116 @@
-import { ApiError } from "./api-error.js";
-import { HttpClient } from "./http-client.js";
+import { createCache, fetchJson, publicError } from "./http.js";
 
-/**
- * @typedef {{
- *   id: number,
- *   name: string,
- *   longName: string,
- *   city: string,
- *   media: string,
- *   ipv6: boolean,
- *   website: string,
- *   updated: string,
- * }} Exchange
- *
- * @typedef {{ asn: number, speedMbps: number, routeServerPeer: boolean }} Member
- *
- * @typedef {{
- *   latitude: number,
- *   longitude: number,
- *   ports: number,
- *   prefixes: number,
- *   trafficAverageMbps: number,
- *   trafficPeakMbps: number,
- *   status: string,
- *   established: string,
- *   updated: string,
- * }} PchRecord
- */
+const PEERINGDB = {
+  source: "PeeringDB",
+  base: "https://www.peeringdb.com/api/",
+};
+const PCH = {
+  source: "Packet Clearing House",
+  base: "https://www.pch.net/api/",
+  timeoutMs: 20_000,
+};
+
+const CACHE_TTL_MS = 5 * 60_000;
+
+function url(base, path, searchParams) {
+  const target = new URL(path, base);
+  for (const [key, value] of Object.entries(searchParams ?? {})) {
+    target.searchParams.set(key, String(value));
+  }
+  return target;
+}
 
 export class PeeringService {
-  constructor() {
-    /** @type {Promise<Exchange> | null} */
-    this.exchange = null;
-    this.peeringDb = new HttpClient({
-      source: "PeeringDB",
-      baseUrl: "https://www.peeringdb.com/api/",
-    });
-    this.pch = new HttpClient({
-      source: "Packet Clearing House",
-      baseUrl: "https://www.pch.net/api/",
-      timeoutMs: 20_000,
+  constructor({ ttlMs = CACHE_TTL_MS } = {}) {
+    this.cache = createCache(ttlMs);
+  }
+
+  getExchange() {
+    return this.cache("exchange", async () => {
+      const body = await fetchJson(
+        url(PEERINGDB.base, "ix", { name__contains: "RINEX" }),
+        PEERINGDB,
+      );
+      const record = body?.data?.find((entry) => entry.country === "RW");
+
+      if (!record) {
+        throw publicError(
+          "PeeringDB has no exchange record for RINEX in Rwanda.",
+        );
+      }
+
+      return {
+        id: record.id,
+        name: record.name,
+        longName: record.name_long,
+        city: record.city,
+        media: record.media,
+        ipv6: Boolean(record.proto_ipv6),
+        website: record.website,
+        updated: record.updated,
+      };
     });
   }
 
-  /** @returns {Promise<Exchange>} */
-  async getExchange() {
-    this.exchange ??= this.#fetchExchange().catch((error) => {
-      this.exchange = null;
-      throw error;
+  getMembers(exchangeId) {
+    return this.cache(`members:${exchangeId}`, async () => {
+      const body = await fetchJson(
+        url(PEERINGDB.base, "netixlan", { ix_id: exchangeId }),
+        PEERINGDB,
+      );
+
+      return (body?.data ?? [])
+        .filter((entry) => entry.operational && entry.status === "ok")
+        .map((entry) => ({
+          asn: entry.asn,
+          speedMbps: entry.speed,
+          routeServerPeer: Boolean(entry.is_rs_peer),
+        }));
     });
-
-    return this.exchange;
   }
 
-  /** @returns {Promise<Exchange>} */
-  async #fetchExchange() {
-    const body = await this.peeringDb.getJson("ix", {
-      searchParams: { name__contains: "RINEX" },
+  getPchRecord() {
+    return this.cache("pch", async () => {
+      // PCH endpoint dumps the whole directory regardless of path param
+      const directory = await fetchJson(
+        url(PCH.base, "ixp/directory/details/RINEX"),
+        PCH,
+      );
+      const record = Array.isArray(directory)
+        ? directory.find((entry) => entry.ctry === "Rwanda")
+        : null;
+
+      if (!record) {
+        throw publicError("The PCH directory lists no exchange in Rwanda.");
+      }
+
+      return {
+        latitude: Number(record.lat),
+        longitude: Number(record.lon),
+        ports: Number(record.prts),
+        prefixes: Number(record.prfs),
+        // PCH reports traffic in bits per second.
+        trafficAverageMbps: Number(record.avg) / 1_000_000,
+        trafficPeakMbps: Number(record.traf) / 1_000_000,
+        status: record.stat,
+        established: String(record.date).slice(0, 4),
+        updated: record.updt,
+      };
     });
-    const record = body?.data?.find((entry) => entry.country === "RW");
-
-    if (!record) {
-      throw new ApiError("PeeringDB has no exchange record for RINEX in Rwanda.", {
-        source: "PeeringDB",
-        code: "NOT_FOUND",
-      });
-    }
-
-    return {
-      id: record.id,
-      name: record.name,
-      longName: record.name_long,
-      city: record.city,
-      media: record.media,
-      ipv6: Boolean(record.proto_ipv6),
-      website: record.website,
-      updated: record.updated,
-    };
   }
 
-  /**
-   * @param {number} exchangeId
-   * @returns {Promise<Member[]>}
-   */
-  async getMembers(exchangeId) {
-    const body = await this.peeringDb.getJson("netixlan", {
-      searchParams: { ix_id: exchangeId },
-    });
-    return (body?.data ?? [])
-      .filter((entry) => entry.operational && entry.status === "ok")
-      .map((entry) => ({
-        asn: entry.asn,
-        speedMbps: entry.speed,
-        routeServerPeer: Boolean(entry.is_rs_peer),
-      }));
-  }
-
-  /** @returns {Promise<PchRecord>} */
-  async getPchRecord() {
-    const directory = await this.pch.getJson("ixp/directory/details/RINEX");
-    const record = Array.isArray(directory)
-      ? directory.find((entry) => entry.ctry === "Rwanda")
-      : null;
-
-    if (!record) {
-      throw new ApiError("The PCH directory lists no exchange in Rwanda.", {
-        source: "Packet Clearing House",
-        code: "NOT_FOUND",
-      });
-    }
-
-    return {
-      latitude: Number(record.lat),
-      longitude: Number(record.lon),
-      ports: Number(record.prts),
-      prefixes: Number(record.prfs),
-      trafficAverageMbps: Number(record.avg) / 1_000_000,
-      trafficPeakMbps: Number(record.traf) / 1_000_000,
-      status: record.stat,
-      established: String(record.date).slice(0, 4),
-      updated: record.updt,
-    };
-  }
-
-  /** @returns {Promise<{ active: boolean, peerCount: number, capacityMbps: number, checkedAt: string }>} */
   async getStatus() {
     const exchange = await this.getExchange();
     const members = await this.getMembers(exchange.id);
 
     return {
+      exchangeId: exchange.id,
       active: members.length > 0,
       peerCount: members.length,
-      capacityMbps: members.reduce((total, member) => total + member.speedMbps, 0),
+      capacityMbps: members.reduce(
+        (total, member) => total + member.speedMbps,
+        0,
+      ),
       checkedAt: new Date().toISOString(),
     };
   }

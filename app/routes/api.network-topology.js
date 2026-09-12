@@ -5,9 +5,9 @@ import {
   NATIONAL_RING,
   TRANSIT_CORRIDORS,
   WAYPOINTS,
-} from "~/data/routing.js";
+} from "~/data/fiber-network.js";
 import { failed, ok } from "~/services/api-response.js";
-import { subseaService } from "~/services/subsea-service.js";
+import { getGeometry, getLandingPoints } from "~/services/subsea-service.js";
 
 const VIEW_BOUNDS = { minLon: 36, maxLon: 44.5, minLat: -12, maxLat: 4 };
 
@@ -17,8 +17,7 @@ const LABEL_TARGETS = {
   "eastern-africa-submarine-system-eassy": [41, -6.4],
 };
 
-/** @param {number[]} point */
-function isVisible([lon, lat]) {
+export function isVisible([lon, lat]) {
   return (
     lon >= VIEW_BOUNDS.minLon &&
     lon <= VIEW_BOUNDS.maxLon &&
@@ -27,11 +26,7 @@ function isVisible([lon, lat]) {
   );
 }
 
-/**
- * @param {number[][][]} paths
- * @returns {number[][][]}
- */
-function clipToView(paths) {
+export function clipToView(paths) {
   const runs = [];
 
   for (const path of paths) {
@@ -61,12 +56,7 @@ function clipToView(paths) {
   return runs;
 }
 
-/**
- * @param {number[][][]} runs
- * @param {number[]} target
- * @returns {number[] | null}
- */
-function anchorNear(runs, target) {
+export function anchorNear(runs, target) {
   const [targetLon, targetLat] = target;
   let best = null;
   let bestDistance = Infinity;
@@ -87,8 +77,8 @@ function anchorNear(runs, target) {
 export async function loader() {
   try {
     const [cables, landingPoints] = await Promise.all([
-      subseaService.getGeometry(),
-      subseaService.getLandingPoints(LANDING_POINT_IDS),
+      getGeometry(),
+      getLandingPoints(LANDING_POINT_IDS),
     ]);
 
     const hubs = HUBS.map((hub) => ({
@@ -100,7 +90,10 @@ export async function loader() {
 
     return ok(
       {
-        ring: NATIONAL_RING.map(([from, to]) => [GEO_NODES[from], GEO_NODES[to]]),
+        ring: NATIONAL_RING.map(([from, to]) => [
+          GEO_NODES[from],
+          GEO_NODES[to],
+        ]),
         corridors: TRANSIT_CORRIDORS.map(([from, to]) => [
           GEO_NODES[from],
           GEO_NODES[to],
@@ -118,7 +111,10 @@ export async function loader() {
               shortName: cable.shortName,
               name: cable.name,
               paths,
-              labelAnchor: anchorNear(paths, LABEL_TARGETS[cable.id] ?? [43, -3.5]),
+              labelAnchor: anchorNear(
+                paths,
+                LABEL_TARGETS[cable.id] ?? [43, -3.5],
+              ),
             };
           })
           .filter((cable) => cable.paths.length > 0),

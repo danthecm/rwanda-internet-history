@@ -5,8 +5,11 @@
   "scripts": {
     "build": "react-router build",
     "dev": "react-router dev --host 0.0.0.0 --port 3000",
+    "format": "prettier --write .",
+    "format:check": "prettier --check .",
     "lint": "eslint .",
-    "start": "react-router-serve ./build/server/index.js"
+    "start": "react-router-serve ./build/server/index.js",
+    "test": "vitest run"
   },
   "dependencies": {
     "@fortawesome/fontawesome-svg-core": "^7.3.1",
@@ -28,7 +31,10 @@
     "eslint-plugin-react": "^7",
     "eslint-plugin-react-hooks": "^7",
     "globals": "^16",
+    "prettier": "^3.9.6",
+    "prettier-plugin-organize-imports": "^4.3.0",
     "tailwindcss": "^4.2.2",
-    "vite": "^8.0.3"
+    "vite": "^8.0.3",
+    "vitest": "^5.0.0"
   }
 }

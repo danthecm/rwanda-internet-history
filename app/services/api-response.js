@@ -1,9 +1,3 @@
-import { ApiError } from "./api-error.js";
-
-/**
- * @param {unknown} data
- * @param {{ source: string, sourceUrl: string, maxAge?: number }} meta
- */
 export function ok(data, { source, sourceUrl, maxAge = 300 }) {
   return Response.json(
     { data, source, sourceUrl, fetchedAt: new Date().toISOString() },
@@ -15,20 +9,15 @@ export function ok(data, { source, sourceUrl, maxAge = 300 }) {
   );
 }
 
-/** @param {unknown} error */
 export function failed(error) {
-  const known = error instanceof ApiError;
-
-  if (!known) {
-    console.error(error);
-  }
+  console.error(error);
 
   return Response.json(
     {
       error: {
-        message: known ? error.message : "An unexpected error occurred.",
-        source: known ? error.source : "Unknown",
-        code: known ? error.code : "UPSTREAM_ERROR",
+        message: error?.expose
+          ? error.message
+          : "An unexpected error occurred.",
       },
     },
     { status: 502, headers: { "Cache-Control": "no-store" } },

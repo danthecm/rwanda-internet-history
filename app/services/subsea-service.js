@@ -1,5 +1,6 @@
-import { HttpClient } from "./http-client.js";
+import { createCache, fetchJson } from "./http.js";
 
+// TeleGeography API slugs (SEACOM is indexed under Tata TGN-Eurasia)
 export const CABLE_IDS = [
   "seacomtata-tgn-eurasia",
   "the-east-african-marine-system-teams",
@@ -12,88 +13,75 @@ const SHORT_NAMES = {
   "eastern-africa-submarine-system-eassy": "EASSy",
 };
 
-/**
- * @typedef {{
- *   id: string,
- *   shortName: string,
- *   name: string,
- *   length: string,
- *   owners: string,
- *   suppliers: string,
- *   readyForService: string,
- *   landingPoints: { id: string, name: string, country: string }[],
- * }} Cable
- */
+const TELEGEOGRAPHY = {
+  source: "TeleGeography Submarine Cable Map",
+  base: "https://www.submarinecablemap.com/api/v3/",
+  timeoutMs: 20_000,
+};
 
-export class SubseaService {
-  constructor() {
-    this.client = new HttpClient({
-      source: "TeleGeography Submarine Cable Map",
-      baseUrl: "https://www.submarinecablemap.com/api/v3/",
-      timeoutMs: 20_000,
-    });
-  }
+const CACHE_TTL_MS = 5 * 60_000;
 
-  /** @returns {Promise<Cable[]>} */
-  async getCables() {
-    const records = await Promise.all(
-      CABLE_IDS.map((id) => this.client.getJson(`cable/${id}.json`)),
-    );
+// The topology and gateway routes both need the landing-point collection, and
+// both run in the same request. Sharing one cache keeps that a single fetch.
+const cache = createCache(CACHE_TTL_MS);
 
-    return records.map((record) => ({
-      id: record.id,
-      shortName: SHORT_NAMES[record.id] ?? record.name,
-      name: record.name,
-      length: record.length,
-      owners: record.owners,
-      suppliers: record.suppliers,
-      readyForService: record.rfs,
-      landingPoints: (record.landing_points ?? []).map((point) => ({
-        id: point.id,
-        name: point.name,
-        country: point.country,
-      })),
-    }));
-  }
-
-  /** @returns {Promise<{ id: string, shortName: string, name: string, paths: number[][][] }[]>} */
-  async getGeometry() {
-    const collection = await this.client.getJson("cable/cable-geo.json");
-
-    return CABLE_IDS.map((id) => {
-      const feature = (collection?.features ?? []).find(
-        (entry) => entry.properties?.id === id,
-      );
-
-      return {
-        id,
-        shortName: SHORT_NAMES[id],
-        name: feature?.properties?.name ?? SHORT_NAMES[id],
-        paths: feature?.geometry?.coordinates ?? [],
-      };
-    }).filter((cable) => cable.paths.length > 0);
-  }
-
-  /**
-   * @param {string[]} ids
-   * @returns {Promise<Record<string, { name: string, coordinates: [number, number] }>>}
-   */
-  async getLandingPoints(ids) {
-    const collection = await this.client.getJson("landing-point/landing-point-geo.json");
-    const wanted = new Set(ids);
-
-    return Object.fromEntries(
-      (collection?.features ?? [])
-        .filter((feature) => wanted.has(feature.properties?.id))
-        .map((feature) => [
-          feature.properties.id,
-          {
-            name: feature.properties.name,
-            coordinates: feature.geometry.coordinates,
-          },
-        ]),
-    );
-  }
+function get(path) {
+  return cache(path, () =>
+    fetchJson(new URL(path, TELEGEOGRAPHY.base), TELEGEOGRAPHY),
+  );
 }
 
-export const subseaService = new SubseaService();
+export async function getCables() {
+  const records = await Promise.all(
+    CABLE_IDS.map((id) => get(`cable/${id}.json`)),
+  );
+
+  return records.map((record) => ({
+    id: record.id,
+    shortName: SHORT_NAMES[record.id] ?? record.name,
+    name: record.name,
+    length: record.length,
+    owners: record.owners,
+    suppliers: record.suppliers,
+    readyForService: record.rfs,
+    landingPoints: (record.landing_points ?? []).map((point) => ({
+      id: point.id,
+      name: point.name,
+      country: point.country,
+    })),
+  }));
+}
+
+export async function getGeometry() {
+  const collection = await get("cable/cable-geo.json");
+
+  return CABLE_IDS.map((id) => {
+    const feature = (collection?.features ?? []).find(
+      (entry) => entry.properties?.id === id,
+    );
+
+    return {
+      id,
+      shortName: SHORT_NAMES[id],
+      name: feature?.properties?.name ?? SHORT_NAMES[id],
+      paths: feature?.geometry?.coordinates ?? [],
+    };
+  }).filter((cable) => cable.paths.length > 0);
+}
+
+export async function getLandingPoints(ids) {
+  const collection = await get("landing-point/landing-point-geo.json");
+  const wanted = new Set(ids);
+
+  return Object.fromEntries(
+    (collection?.features ?? [])
+      .filter((feature) => wanted.has(feature.properties?.id))
+      .map((feature) => [
+        feature.properties.id,
+        {
+          name: feature.properties.name,
+          coordinates: feature.geometry.coordinates,
+        },
+      ]),
+  );
+}

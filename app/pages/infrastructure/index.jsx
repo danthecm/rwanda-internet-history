@@ -1,40 +1,46 @@
-import Hero from "~/components/infrastructure/hero";
-import MobileEvolutionSection from "~/components/infrastructure/mobile-evolution-section";
-import NetworkSection from "~/components/infrastructure/network-section";
-import NextChapterSection from "~/components/infrastructure/next-chapter-section";
-import RoutingSection from "~/components/routing/routing-section";
-import StatsPanel from "~/components/ui/stats-panel";
-import { PEER_COUNT_STAT_ID, STATS } from "~/data/infrastructure";
-import useApiResource from "~/hooks/use-api-resource";
+import { useLoaderData } from "react-router";
+import FiberNetworkConsole from "~/components/infrastructure/FiberNetworkConsole";
+import MobileEvolutionSection from "~/components/infrastructure/MobileEvolutionSection";
+import NetworkComponentsSection from "~/components/infrastructure/NetworkComponentsSection";
+import NextChapterSection from "~/components/ui/NextChapterSection";
+import PageHero from "~/components/ui/PageHero";
+import StatsPanel from "~/components/ui/StatsPanel";
+import { INFRASTRUCTURE_STATS, NETWORK_DATA_ID } from "~/data/infrastructure";
 
-const STATUS_INTERVAL_MS = 5 * 60 * 1000;
-
-export default function InfrastructurePage() {
-  const status = useApiResource("/api/network-status", {
-    intervalMs: STATUS_INTERVAL_MS,
-  });
-
-  const stats = STATS.items.map((item) =>
-    item.id === PEER_COUNT_STAT_ID && status.data
-      ? { ...item, value: String(status.data.peerCount) }
-      : item,
-  );
+const InfrastructurePage = () => {
+  const networkData = useLoaderData();
 
   return (
     <>
-      <Hero />
-      <div
-        id={STATS.id}
-        className="relative z-10 mx-auto w-full max-w-[1045px] px-4 md:-mt-[56px] md:px-8 lg:-mt-[72px] xl:-mt-[90px]"
-      >
-        <StatsPanel stats={stats} variant="compact" />
+      <PageHero
+        content={{
+          eyebrow: "Physical Infrastructure · National Grid",
+          title: "The Backbone of a Nation",
+          lead: "Rwanda is landlocked and hundreds of miles from the ocean. To get high-speed internet, it had to run thousands of kilometers of physical glass cables across borders and over mountains.",
+          cta: { label: "View Network Data", href: `#${NETWORK_DATA_ID}` },
+        }}
+        accent={{
+          badge: "border-primary/30 bg-primary/30",
+          text: "text-primary",
+        }}
+      />
+      <div className="relative z-10 mx-auto w-full max-w-[1045px] px-4 md:-mt-[56px] md:px-8 lg:-mt-[72px] xl:-mt-[90px]">
+        <StatsPanel stats={INFRASTRUCTURE_STATS} />
       </div>
-      <NetworkSection />
-      <RoutingSection status={status} />
+      <NetworkComponentsSection />
+      <FiberNetworkConsole networkData={networkData} />
       <MobileEvolutionSection />
-      <div className="mt-12 pb-16 md:mt-[65px] md:pb-[69px]">
-        <NextChapterSection />
-      </div>
+      <NextChapterSection
+        title={[
+          { text: "See the human impact" },
+          { break: true },
+          { text: "of this infrastructure." },
+        ]}
+        lead="Explore digital public services, educational technology, and socio-economic inclusion."
+        cta={{ label: "Next: Socio-Economic Metrics", to: "/metrics" }}
+      />
     </>
   );
-}
+};
+
+export default InfrastructurePage;

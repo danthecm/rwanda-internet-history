@@ -2,7 +2,10 @@ import MetricsPage from "~/pages/metrics";
 
 export function meta() {
   return [
-    { title: "Digital Public Services & Socio-Economic Metrics | Rwanda Digital Evolution" },
+    {
+      title:
+        "Digital Public Services & Socio-Economic Metrics | Rwanda Digital Evolution",
+    },
     {
       name: "description",
       content:
