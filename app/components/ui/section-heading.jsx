@@ -23,6 +23,12 @@ const VARIANTS = {
     title: "text-2xl font-black text-white md:text-4xl",
     body: "",
   },
+  leftHighlight: {
+    root: "items-start text-left",
+    eyebrow: "text-xs text-highlight",
+    title: "text-2xl font-black text-white md:text-4xl",
+    body: "max-w-[640px] pt-4 leading-7 text-muted",
+  },
 };
 
 /**

@@ -5,6 +5,7 @@ import RichText from "~/components/ui/rich-text";
 const VARIANTS = {
   card: "rounded-3xl border-accent/30 bg-card",
   band: "rounded-sm border-white/10 bg-ink",
+  photoBand: "relative isolate overflow-hidden rounded-sm border-ember/25",
 };
 
 /**
@@ -14,6 +15,8 @@ const VARIANTS = {
  *   title: { text?: string, className?: string, break?: boolean }[],
  *   lead?: string,
  *   cta: { label: string, to: string },
+ *   image?: string,
+ *   imageAlt?: string,
  *   variant?: keyof typeof VARIANTS,
  * }} props
  */
@@ -23,12 +26,29 @@ export default function NextChapterCard({
   title,
   lead,
   cta,
+  image,
+  imageAlt = "",
   variant = "card",
 }) {
   return (
     <div
       className={`flex flex-col gap-8 border p-8 md:flex-row md:items-center md:justify-between md:p-12 ${VARIANTS[variant]}`}
     >
+      {image ? (
+        <>
+          <img
+            src={image}
+            alt={imageAlt}
+            aria-hidden={imageAlt ? undefined : "true"}
+            className="absolute inset-0 -z-10 size-full object-cover"
+          />
+          <div
+            aria-hidden="true"
+            className="band-scrim absolute inset-0 -z-10"
+          />
+        </>
+      ) : null}
+
       <div>
         <p className="flex items-center gap-1.5 font-display text-xs leading-4 font-semibold tracking-[1.2px] text-primary">
           {eyebrowIcon ? <Icon icon={eyebrowIcon} /> : null}

@@ -1,5 +1,5 @@
-import NetworkCard from "~/components/ui/network-card";
 import SectionHeading from "~/components/ui/section-heading";
+import StatCard from "~/components/ui/stat-card";
 import { NETWORK } from "~/data/infrastructure";
 
 export default function NetworkSection() {
@@ -15,7 +15,7 @@ export default function NetworkSection() {
 
           <div className="mt-6.5 grid gap-px bg-card-rule md:mt-12 lg:grid-cols-3">
             {NETWORK.components.map((item) => (
-              <NetworkCard
+              <StatCard
                 key={item.title}
                 icon={item.icon}
                 kicker={item.kicker}
@@ -23,7 +23,7 @@ export default function NetworkSection() {
                 stat={item.stat}
               >
                 {item.body}
-              </NetworkCard>
+              </StatCard>
             ))}
           </div>
         </div>
