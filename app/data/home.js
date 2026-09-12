@@ -1,3 +1,9 @@
+import {
+  faGraduationCap,
+  faLandmark,
+  faRoad,
+} from "@fortawesome/free-solid-svg-icons";
+
 import agriculture from "~/assets/images/agriculture.webp";
 import heroBg from "~/assets/images/hero-bg.webp";
 
@@ -143,21 +149,21 @@ export const NICI_PHASES = [
 
 export const PILLARS = [
   {
-    icon: "🛣",
+    icon: faRoad,
     title: "Physical Highway",
-    accentClassName: "bg-highlight",
+    accent: "highlight",
     body: "Laying fiber-optic cables so every town and district has direct access to high-speed broadband — the digital roads of the knowledge economy.",
   },
   {
-    icon: "🎓",
+    icon: faGraduationCap,
     title: "Human Skills",
-    accentClassName: "bg-secondary",
+    accent: "secondary",
     body: "Training students, teachers, and civil servants on computers and digital tools, building the human capital to operate and grow the new digital infrastructure.",
   },
   {
-    icon: "🏛",
+    icon: faLandmark,
     title: "Online Governance",
-    accentClassName: "bg-pillar-green",
+    accent: "green",
     body: "Replacing paper office queues with digital services — government transactions, licenses, and registrations moved onto secure online portals accessible from any device.",
   },
 ];

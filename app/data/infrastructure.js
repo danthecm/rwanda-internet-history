@@ -1,3 +1,10 @@
+import {
+  faBullseye,
+  faDiamond,
+  faHexagon,
+  faRocket,
+} from "@fortawesome/free-solid-svg-icons";
+
 const NETWORK_DATA_ID = "network-data";
 
 export const HERO = {
@@ -15,21 +22,21 @@ export const NETWORK = {
   title: "Network Components",
   components: [
     {
-      icon: "◈",
+      icon: faDiamond,
       kicker: "Terrestrial Fiber Infrastructure",
       title: "3,000+ km National Backbone",
       body: "A ring of glass cables running through all 30 administrative districts, piping high-speed bandwidth directly to regional hospitals, schools, and government offices.",
       stat: { value: "30", label: "Districts Covered" },
     },
     {
-      icon: "⬡",
+      icon: faHexagon,
       kicker: "Global Connectivity Gateways",
       title: "Undersea Cable Gateways",
       body: "Because Rwanda has no coastline, terrestrial cables run across Tanzania and Kenya to plug directly into deep-sea fiber systems: SEACOM, TEAMS, and EASSy along the Indian Ocean floor.",
       stat: { value: "3", label: "Subsea Cable Systems" },
     },
     {
-      icon: "◎",
+      icon: faBullseye,
       kicker: "Domestic Peering",
       title: "RINEX & RICTA",
       body: "RINEX keeps local internet traffic routing domestically — like an inner-city bypass — avoiding expensive overseas satellite routing. RICTA manages .rw web domains with 50+ registrars.",
@@ -112,7 +119,8 @@ export const STATS = {
 };
 
 export const NEXT_CHAPTER = {
-  eyebrow: "🚀 NEXT CHAPTER",
+  eyebrow: "NEXT CHAPTER",
+  eyebrowIcon: faRocket,
   title: [
     { text: "See the human impact" },
     { break: true },

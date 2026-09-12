@@ -12,7 +12,7 @@ export default function PillarsSection({ pillars = PILLARS }) {
                 key={pillar.title}
                 icon={pillar.icon}
                 title={pillar.title}
-                accentClassName={pillar.accentClassName}
+                accent={pillar.accent}
               >
                 {pillar.body}
               </PillarCard>

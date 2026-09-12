@@ -1,4 +1,5 @@
 import Button from "~/components/ui/button";
+import Icon from "~/components/ui/icon";
 import RichText from "~/components/ui/rich-text";
 
 const VARIANTS = {
@@ -9,6 +10,7 @@ const VARIANTS = {
 /**
  * @param {{
  *   eyebrow: string,
+ *   eyebrowIcon?: import("@fortawesome/fontawesome-svg-core").IconDefinition,
  *   title: { text?: string, className?: string, break?: boolean }[],
  *   lead?: string,
  *   cta: { label: string, to: string },
@@ -17,6 +19,7 @@ const VARIANTS = {
  */
 export default function NextChapterCard({
   eyebrow,
+  eyebrowIcon,
   title,
   lead,
   cta,
@@ -27,7 +30,8 @@ export default function NextChapterCard({
       className={`flex flex-col gap-8 border p-8 md:flex-row md:items-center md:justify-between md:p-12 ${VARIANTS[variant]}`}
     >
       <div>
-        <p className="font-display text-xs leading-4 font-semibold tracking-[1.2px] text-primary">
+        <p className="flex items-center gap-1.5 font-display text-xs leading-4 font-semibold tracking-[1.2px] text-primary">
+          {eyebrowIcon ? <Icon icon={eyebrowIcon} /> : null}
           {eyebrow}
         </p>
         <p className="pt-2 font-display text-2xl leading-8 font-black tracking-[-0.6px] text-foreground md:text-[30px] md:leading-9">

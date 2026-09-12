@@ -1,3 +1,6 @@
+import { faXmark } from "@fortawesome/free-solid-svg-icons";
+
+import Icon from "~/components/ui/icon";
 import StatusPill from "~/components/ui/status-pill";
 import { INSPECTOR } from "~/data/routing.js";
 
@@ -40,9 +43,9 @@ export default function InspectorSidebar({ node, onClose, className = "" }) {
             type="button"
             onClick={onClose}
             aria-label={INSPECTOR.closeLabel}
-            className="-m-1 flex size-6 items-center justify-center rounded p-1 font-sans text-sm leading-none text-console-dim hover:text-console-bright focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-console-data"
+            className="-m-1 flex size-6 items-center justify-center rounded p-1 text-sm text-console-dim hover:text-console-bright focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-console-data"
           >
-            ×
+            <Icon icon={faXmark} />
           </button>
         </div>
         <div className="flex items-center gap-2 pt-1">

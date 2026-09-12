@@ -1,6 +1,8 @@
+import Icon from "~/components/ui/icon";
+
 /**
  * @param {{
- *   icon: string,
+ *   icon: import("@fortawesome/fontawesome-svg-core").IconDefinition,
  *   kicker: string,
  *   title: string,
  *   stat: { value: string, label: string },
@@ -18,11 +20,8 @@ export default function NetworkCard({
 }) {
   return (
     <article className={`flex h-full flex-col bg-card p-8 ${className}`}>
-      <p
-        aria-hidden="true"
-        className="h-15 font-display text-[30px] leading-9 font-normal text-secondary"
-      >
-        {icon}
+      <p aria-hidden="true" className="h-15 text-[30px] leading-9 text-secondary">
+        <Icon icon={icon} />
       </p>
 
       <p className="font-display text-xs leading-4 font-semibold tracking-[1.2px] text-card-label">
