@@ -11,8 +11,8 @@ Built with React Router 8 (framework mode, SSR), React 19 and Tailwind CSS 4.
 | Route             | Subject                                                     | Status      |
 | ----------------- | ----------------------------------------------------------- | ----------- |
 | `/`               | Policy foundations & genesis, 1994–2010 (Vision 2020, NICI)  | Complete    |
-| `/infrastructure` | The physical grid, domestic peering (RINEX & RICTA), 5G      | Stub        |
-| `/metrics`        | Digital public services (IremboGov) and Vision 2050 targets  | Stub        |
+| `/infrastructure` | The physical grid, domestic peering (RINEX & RICTA), 5G      | Complete    |
+| `/metrics`        | Digital public services (IremboGov) and Vision 2050 targets  | Complete    |
 
 ## Getting started
 
